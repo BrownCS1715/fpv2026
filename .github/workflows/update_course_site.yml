@@ -1,0 +1,60 @@
+name: Update course site on push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout course repository
+        uses: actions/checkout@v3
+
+      - name: Generate markdown files
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:v4.22.0
+          ~/.elan/bin/lake build mdgen
+          ~/.elan/bin/lake exe mdgen LoVe markdown
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SITE_DEPLOY_KEY }}
+
+      - name: Clone course site
+        run: |
+          git config --global user.name "GitHub Bot"
+          git config --global user.email "bot@example.com"
+          git clone git@github.com:BrownCS1715/BrownCS1715.github.io site
+
+      - name: Add markdown files to course site
+        run: |
+          # Homework
+          if [ -d markdown/Homework ]; then
+            mkdir -p site/src/docs/homework/  
+            mv -v markdown/Homework/* site/src/docs/homework/
+          fi
+          # Labs
+          if [ -d markdown/Labs ]; then
+            mkdir -p site/src/docs/labs/  
+            mv -v markdown/Labs/* site/src/docs/labs/
+          fi
+          # Lectures
+          if [ -d markdown/Lectures ]; then
+            mkdir -p site/src/docs/lectures/  
+            mv -v markdown/Lectures/* site/src/docs/lectures/
+          fi
+
+      - name: Commit and push changes
+        run: |
+          cd site
+          git add .
+          if git diff --cached --quiet; then
+              echo "No changes to commit."
+          else
+              git commit -m "Sync from course repository"
+              git push
+          fi
