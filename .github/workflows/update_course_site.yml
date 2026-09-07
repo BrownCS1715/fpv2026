@@ -20,7 +20,7 @@ jobs:
           ~/.elan/bin/lake exe mdgen LoVe markdown
 
       - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.SITE_DEPLOY_KEY }}
 
