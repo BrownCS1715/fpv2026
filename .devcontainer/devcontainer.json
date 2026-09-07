@@ -6,7 +6,12 @@
   },
 
   "onCreateCommand": "lake exe cache get! && lake build LoVe.LoVelib",
-
+  
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "16gb"
+  },
+  
   "customizations": {
     "vscode": {
       "extensions": ["leanprover.lean4"]
