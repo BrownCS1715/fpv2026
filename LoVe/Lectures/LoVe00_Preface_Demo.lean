@@ -46,7 +46,8 @@ Mathematics:
 * the four-color theorem (in Coq);
 * the odd-order theorem (in Coq);
 * the Kepler conjecture (in HOL Light and Isabelle/HOL);
-* the Liquid Tensor Experiment (in Lean)
+* the Liquid Tensor Experiment (in Lean);
+* many recent AI-assisted mathematical proofs (in Lean)
 
 Computer science:
 
@@ -64,8 +65,7 @@ Research) since 2012.
 
 Its mathematical library, `mathlib`, is developed by a user community.
 
-We are using Lean 4, a recent version. We use its basic libraries, `mathlib`, and
-`LoVelib`. Lean is a research project.
+We are using Lean 4. We use its basic libraries, `mathlib`, and `LoVelib`.
 
 Strengths:
 
@@ -85,9 +85,9 @@ Strengths:
 
     https://BrownCS1715.github.io
 
-### Repository (Demos, Exercises, Homework)
+### Repository (Demos, Homework)
 
-    https://github.com/BrownCS1715/fpv2025
+    https://github.com/BrownCS1715/fpv2026
 
 The file you are currently looking at is a demo.
 For each chapter of the Hitchhiker's Guide, there will be approximately
@@ -96,10 +96,21 @@ one demo, one exercise sheet, and one homework.
 * Lecture demos will be covered in class. These are "lecture notes," in place of slides.
   We'll post skeletons of the demos before class, and completed demos after class.
 
-* Exercises are for weekly lab sessions run by the TAs.
-
 * Homeworks are for you to do on your own, and submit via Gradescope.
 
+### AI policy
+
+This is an upper level class. I assume you're all here for a reason.
+It's on you to learn what you want to learn.
+
+There's a lot of buzz about how verification tools and AI interact.
+A takeaway from this course: *blind* use of proof assistants like Lean does *not* lead
+to trustworthy code. If you don't know what you're doing it's easy to be misled.
+If you *do* know what you're doing, opportunities abound.
+
+My goal is to convey how to use generative AI responsibly in the setting of a proof assistant.
+On each homework I will try to describe what I want you to take away,
+and what parts are reasonable to fill in with AI tools.
 
 ### The Hitchhiker's Guide to Logical Verification
 
@@ -132,37 +143,6 @@ Lean is our vehicle, not an end in itself.
 
 open Nat
 #eval minFac 11
-
-
-theorem infinitude_of_primes : ∀ N, ∃ p ≥ N, Nat.Prime p := by
-  intro N
-
-  let F := N ! + 1
-  let q := minFac F
-  use q
-
-  have qPrime : Nat.Prime q := sorry
-
-  apply And.intro
-
-  { by_contra hqN
-    have h1 : q ∣ N ! + 1 := by exact minFac_dvd F
-    have h2 : q > 0 := by exact minFac_pos F
-    have h3 : q ∣ N ! := by refine dvd_factorial h2 (by linarith)
-    have h4 : q ∣ 1 := by exact (Nat.dvd_add_iff_right h3).mpr h1
-    have h5 : ¬ q ∣ 1 := by exact Nat.Prime.not_dvd_one qPrime
-    contradiction }
-  { assumption }
-
-  done
-
-
-
-
-
-
-
-
 
 
 
@@ -230,3 +210,23 @@ theorem infinitude_of_primes2 : ∀ N, ∃ p ≥ N, Nat.Prime p := by
   { exact biggerPrime_is_bigger _ }
   { exact biggerPrime_is_prime _ }
   done
+
+
+/-
+
+`biggerPrime` is a verified program. We've provided an implementation and proved that this
+implementation meets a spec.
+
+What is the *trust boundary* here? In order to believe this verification, what must *we* read?
+What must *we* produce? How could our trust be broken?
+
+
+Specs are essential when working with agents or people who might be incentivized toward
+something other than correctness.
+<https://kim-em.github.io/blog/2026-7-24-why-lean-is-faster-than-rust/>
+
+
+But is correctness always the primary goal?
+<https://www.anthropic.com/research/formalizing-fermats-last-theorem>
+
+-/
