@@ -115,7 +115,7 @@ def append (α : Type) : List α → List α → List α
 
 /- Because `append` must work for any type of list, the type of the list's
 elements is provided as an argument. As a result, the type must be provided in
-every call (though we can wite `_` to ask Lean to infer the type).
+every call (though we can write `_` to ask Lean to infer the type).
 
 Note that we use the following convenience notation: `[]` for `List.nil`,
 `x :: xs` for `List.cons x xs`, and `[x₁, …, xN]` for `x₁ :: … :: xN :: []`. -/
@@ -294,7 +294,6 @@ On our course website, we link to some resources for searching Mathlib.
 Particularly useful for the moment:
 
 * LeanSearch <https://leansearch.net/>
-* Moogle <https://www.moogle.ai/>
 * The official Mathlib API docs <https://leanprover-community.github.io/mathlib4_docs/>
 
 (Loogle is a *symbolic* search tool that is also very useful, but
