@@ -14,6 +14,8 @@ Replace the placeholders (e.g., `:= sorry`) with your solutions. When you are
 finished, submit *only* this file to the appropriate Gradescope assignment.
 Remember that the autograder does not determine your final grade.
 
+## Homework 2 AI policy
+
 The goal of this assignment is to help you understand the relationship between
 tactics (the lines in a proof script) and the proof state (goals and hypotheses),
 as well as to familiarize yourself with logical derivations.

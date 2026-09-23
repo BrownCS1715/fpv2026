@@ -62,16 +62,16 @@ constructing a term. By hovering over `_`, you will see the current logical
 context. -/
 
 @[autogradedProof 1] def B : (α → β) → (γ → α) → γ → β :=
-  sorry
+  by aesop
 
 @[autogradedProof 1] def S : (α → β → γ) → (α → β) → α → γ :=
-  sorry
+  by aesop
 
 @[autogradedProof 1] def moreNonsense : (γ → (α → β) → α) → γ → β → α :=
-  sorry
+  by aesop
 
 @[autogradedProof 1] def evenMoreNonsense : (α → α → β) → (β → γ) → α → β → γ :=
-  sorry
+  by aesop
 
 /- ### 1.2 (2 points)
 
