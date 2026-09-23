@@ -116,7 +116,7 @@ theorem EM_of_DN :
   DoubleNegation → ExcludedMiddle :=
   sorry
 
-/- In this week's lab, you'll have the option to prove a few more implications.
+/- Here are a few more implications.
 We state them `sorry`ed here, for reference and use;
 you don't need to prove these for this homework. -/
 
