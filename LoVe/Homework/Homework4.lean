@@ -293,9 +293,6 @@ equal left and right folds, then that function must be left-commutative. -/
     LeftCommutative g :=
   sorry
 
-
-end LeftCommUtil
-
 /- ## Question (7 points): Heterogeneous Lists
 
 We've become familiar with `List`s, which contain multiple ordered values of the
